@@ -25,6 +25,10 @@ func _ready():
 	room_width = ProjectSettings.get("display/window/size/viewport_width") / cell_quadrant_size / room_size
 	room_height = ProjectSettings.get("display/window/size/viewport_height") / cell_quadrant_size / room_size
 	build_maze()
+	
+func _process(delta):
+	if Input.is_action_just_pressed("reset") and not reset_button.disabled: 
+		_on_button_pressed()
 
 func build_room(room: Vector2i): 
 	var xx = room.x
