@@ -18,12 +18,13 @@ enum {
 signal maze_finished
 signal maze_cleared
 
-@onready var speed_slider: HSlider = get_node("UI/HBoxContainer/Panel2/CenterContainer/HBoxContainer/HSlider")
-@onready var reset_button: Button = get_node("UI/HBoxContainer/Button")
+@onready var speed_slider: HSlider = get_node("UI/HBoxContainer/SpeedPanel/CenterContainer/HBoxContainer/HSlider")
+@onready var reset_button: Button = get_node("UI/HBoxContainer/ResetButton")
+@onready var maze_width_spin_box: SpinBox = get_node("UI/RoomSize/RoomWidth/HBoxContainer/SpinBox")
+@onready var maze_height_spin_box: SpinBox = get_node("UI/RoomSize/RoomHeight/HBoxContainer/SpinBox")
 
 func _ready():
-	room_width = ProjectSettings.get("display/window/size/viewport_width") / cell_quadrant_size / room_size
-	room_height = ProjectSettings.get("display/window/size/viewport_height") / cell_quadrant_size / room_size
+	wait_time = 1 - speed_slider.value
 	build_maze()
 	
 func _process(delta):
@@ -81,6 +82,8 @@ func update_room(room: Vector2i, neighbor: Vector2i):
 		set_cell(0, Vector2i(xx * 4 + 2, yy * 4 + 4), 0, Vector2i(WHITE, 0))
 
 func build_maze(): 
+	room_width = maze_width_spin_box.value
+	room_height = maze_height_spin_box.value
 	for i in range(room_width): 
 		visited_rooms.append([])
 		for j in range(room_height): 
@@ -121,14 +124,11 @@ func _on_button_pressed():
 	clear_maze()
 	reset_button.disabled = true
 
-
 func _on_maze_cleared():
 	build_maze()
 
-
 func _on_h_slider_value_changed(value):
 	wait_time = 1 - value
-
 
 func _on_exit_button_pressed():
 	get_tree().change_scene_to_file("res://Menus/start_menu.tscn")

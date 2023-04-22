@@ -22,9 +22,9 @@ script = ExtResource("3_8rg0c")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="UI"]
 offset_left = 224.0
-offset_top = 588.0
-offset_right = 984.0
-offset_bottom = 648.0
+offset_top = 815.0
+offset_right = 1124.0
+offset_bottom = 875.0
 theme_override_constants/separation = 60
 alignment = 1
 metadata/_edit_group_ = true
@@ -44,12 +44,12 @@ text = "Press Enter to Hide/Show UI"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Panel2" type="Panel" parent="UI/HBoxContainer"]
+[node name="SpeedPanel" type="Panel" parent="UI/HBoxContainer"]
 custom_minimum_size = Vector2(400, 60)
 layout_mode = 2
 metadata/_edit_group_ = true
 
-[node name="CenterContainer" type="CenterContainer" parent="UI/HBoxContainer/Panel2"]
+[node name="CenterContainer" type="CenterContainer" parent="UI/HBoxContainer/SpeedPanel"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -57,25 +57,85 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="UI/HBoxContainer/Panel2/CenterContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/HBoxContainer/SpeedPanel/CenterContainer"]
 layout_mode = 2
 alignment = 1
 
-[node name="Label" type="Label" parent="UI/HBoxContainer/Panel2/CenterContainer/HBoxContainer"]
+[node name="Label" type="Label" parent="UI/HBoxContainer/SpeedPanel/CenterContainer/HBoxContainer"]
 layout_mode = 2
 text = "Speed: "
 
-[node name="HSlider" type="HSlider" parent="UI/HBoxContainer/Panel2/CenterContainer/HBoxContainer"]
+[node name="HSlider" type="HSlider" parent="UI/HBoxContainer/SpeedPanel/CenterContainer/HBoxContainer"]
 custom_minimum_size = Vector2(320, 40)
 layout_mode = 2
 max_value = 1.0
 step = 0.05
+value = 0.5
 
-[node name="Button" type="Button" parent="UI/HBoxContainer"]
+[node name="ResetButton" type="Button" parent="UI/HBoxContainer"]
 custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 disabled = true
 text = "Reset"
+
+[node name="RoomSize" type="HBoxContainer" parent="UI"]
+offset_left = 196.0
+offset_top = 713.0
+offset_right = 1040.0
+offset_bottom = 773.0
+theme_override_constants/separation = 160
+alignment = 1
+metadata/_edit_group_ = true
+
+[node name="RoomWidth" type="Panel" parent="UI/RoomSize"]
+custom_minimum_size = Vector2(240, 60)
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/RoomSize/RoomWidth"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 40
+alignment = 1
+
+[node name="Label" type="Label" parent="UI/RoomSize/RoomWidth/HBoxContainer"]
+layout_mode = 2
+text = "Maze Width"
+
+[node name="SpinBox" type="SpinBox" parent="UI/RoomSize/RoomWidth/HBoxContainer"]
+layout_mode = 2
+min_value = 1.0
+max_value = 20.0
+value = 20.0
+alignment = 1
+
+[node name="RoomHeight" type="Panel" parent="UI/RoomSize"]
+custom_minimum_size = Vector2(240, 0)
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/RoomSize/RoomHeight"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 40
+alignment = 1
+
+[node name="Label" type="Label" parent="UI/RoomSize/RoomHeight/HBoxContainer"]
+layout_mode = 2
+text = "Maze Height"
+
+[node name="SpinBox" type="SpinBox" parent="UI/RoomSize/RoomHeight/HBoxContainer"]
+layout_mode = 2
+min_value = 1.0
+max_value = 15.0
+value = 15.0
+alignment = 1
 
 [node name="ExitButton" type="Button" parent="UI"]
 custom_minimum_size = Vector2(60, 40)
@@ -87,6 +147,6 @@ text = "Exit"
 
 [connection signal="maze_cleared" from="." to="." method="_on_maze_cleared"]
 [connection signal="maze_finished" from="." to="." method="_on_maze_finished"]
-[connection signal="value_changed" from="UI/HBoxContainer/Panel2/CenterContainer/HBoxContainer/HSlider" to="." method="_on_h_slider_value_changed"]
-[connection signal="pressed" from="UI/HBoxContainer/Button" to="." method="_on_button_pressed"]
+[connection signal="value_changed" from="UI/HBoxContainer/SpeedPanel/CenterContainer/HBoxContainer/HSlider" to="." method="_on_h_slider_value_changed"]
+[connection signal="pressed" from="UI/HBoxContainer/ResetButton" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="UI/ExitButton" to="." method="_on_exit_button_pressed"]
